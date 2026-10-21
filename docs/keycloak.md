@@ -34,7 +34,7 @@ docker compose -f compose.yaml -f compose.auth.yaml rm -sf keycloak
 docker compose -f compose.yaml -f compose.auth.yaml up -d keycloak
 ```
 
-The development database lives inside the container, so anything you create in the admin console is lost when the container is recreated; put lasting changes in the JSON file.
+On a **first** start nothing needs recreating: the file is imported automatically. The development database lives inside the container, so anything you create in the admin console is lost when the container is recreated; put lasting changes in the JSON file.
 
 Gotchas that bit us while building it: a client needs the `basic` client scope or its tokens have no `sub`; custom claims need protocol mappers on the client (the realm roles mapper produces the top-level `roles` claim; the audience mapper adds `grandstack-api`).
 

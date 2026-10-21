@@ -51,4 +51,4 @@ All in `schema/auth.graphql`:
 
 ## Adding a role
 
-See [recipes](recipes.md#add-a-role-that-can-delete-any-review).
+See [recipes](recipes.md#add-a-role-that-can-delete-any-review). Note that the `Review` rule in `schema/auth.graphql` is a single filter shared by update and delete; the recipe shows how to split it when a role should be able to do only one of them.

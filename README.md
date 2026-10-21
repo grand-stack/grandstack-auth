@@ -17,6 +17,7 @@ This repo is used through the `grandstack` umbrella repo. With `grandstack`, `gr
 
 ```sh
 cd grandstack
+cp .env.example .env        # once
 docker compose -f compose.yaml -f compose.auth.yaml up --build
 ```
 

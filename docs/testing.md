@@ -15,7 +15,7 @@ In `grandstack-server`: `npm test` covers the `AUTH_*` all-or-nothing validation
 
 ## 3. Token-level smoke test: `scripts/auth-smoke.mjs`
 
-No browser. It logs in as alice, bob and carol with the password grant and calls the API, checking the whole rule matrix:
+No browser. It logs in as the demo users alice, bob and carol with the password grant and calls the API, checking the whole rule matrix (add a user to the `const [alice, bob, carol] = ...` line to test another role):
 
 - anonymous reads work; anonymous writes are refused;
 - a user can write and edit their own review but cannot change the catalogue;
@@ -27,10 +27,10 @@ No browser. It logs in as alice, bob and carol with the password grant and calls
 
 ```sh
 npm ci
-npm run smoke                      # through the gateway: 27 checks
+npm run smoke                      # through the gateway
 ```
 
-To include the direct-to-server checks, the script must run where it can reach the (unpublished) server, so run it inside the compose network. This is how the 31-check run was done:
+To include the direct-to-server checks, the script must run where it can reach the (unpublished) server, so run it inside the compose network (this adds a few checks):
 
 ```sh
 docker run --rm --network grandstack_default -v "$PWD:/app" -w /app \
@@ -38,7 +38,7 @@ docker run --rm --network grandstack_default -v "$PWD:/app" -w /app \
   -e KEYCLOAK_URL=http://keycloak:8080 docker.io/library/node:24-slim node scripts/auth-smoke.mjs
 ```
 
-(`grandstack_default` is the network compose creates for the `grandstack` folder; check the name with `docker network ls`.) Variables: `GRAPHQL_URL`, `SERVER_URL`, `KEYCLOAK_URL` (where to get tokens), `AUTH_ISSUER` (the `iss` the services expect, used to forge tokens). The script creates data named `ZZ Auth ...` and removes it. It exits non-zero on any failure.
+(`grandstack_default` is the network compose creates for a project named `grandstack`, which is the name of the folder you run compose from. Find yours with `docker network ls | grep _default`, or start compose with `COMPOSE_PROJECT_NAME=grandstack`.) Variables: `GRAPHQL_URL`, `SERVER_URL`, `KEYCLOAK_URL` (where to get tokens), `AUTH_ISSUER` (the `iss` the services expect, used to forge tokens). The script creates data named `ZZ Auth ...` and removes it. It exits non-zero on any failure.
 
 ## 4. Browser end-to-end: `e2e/run.mjs`
 

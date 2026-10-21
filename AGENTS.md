@@ -5,7 +5,9 @@ Auth for GRANDstack: Hive Gateway (`gateway/`), Keycloak dev realm (`keycloak/`)
 ## Commands
 - Start: `cd ../grandstack && docker compose -f compose.yaml -f compose.auth.yaml up --build` (client :3001, gateway :4000, Keycloak :8081).
 - Gateway: `cd gateway && npm ci && npm test && npm run typecheck`. Client: `cd client && npm ci && npm test && npm run typecheck` (`npm run codegen` needs the stack).
-- With the stack running: `npm ci && npm run smoke` and `npm run e2e`. Before you finish: unit tests, `npm run docs:check`, smoke and e2e.
+- With the stack running: `npm ci && npm run smoke` and `npm run e2e`.
+- Before you finish, all of: `(cd gateway && npm test && npm run typecheck)`, `(cd client && npm test && npm run typecheck)`, `npm run docs:check`, then with the stack running `npm run smoke` and `npm run e2e`.
+- First time: `cp .env.example .env` in the `grandstack` repo (compose reads the Neo4j password from it).
 
 ## Rules that are easy to get wrong
 - Realm edits only apply to a fresh Keycloak (recreate the container); see [docs/keycloak.md](docs/keycloak.md#changing-the-realm).
