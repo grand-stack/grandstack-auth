@@ -2,28 +2,20 @@
 
 This repository adds login and access rules to GRANDstack without changing `grandstack-web`. It is opt-in: the default stack stays open, and `compose.auth.yaml` in the `grandstack` repository turns auth on.
 
-Applies to grandstack-auth v0.1.0 with grandstack-server v0.7.0, Keycloak 26.8, Hive Gateway 2.15.
+Applies to grandstack-auth v0.1.1 with grandstack-server v0.7.1, Keycloak 26.8, Hive Gateway 2.15.
 
 ## The pieces
 
-```
- Browser (demo client :3001, or any client)
-   |  OIDC login (authorization code + PKCE)         Authorization: Bearer <access token>
-   v                                                   |
- Keycloak :8081  ----------------------------+         v
- (dev realm, demo users)                     |     Gateway :4000   (Hive Gateway, proxy mode)
-   ^                                         |       - validates the token (JWKS, exp, iss, aud)
-   | JWKS (public keys)                      |       - refuses mutations the token has no permission for
-   +---------------------+-------------------+       - forwards the Authorization header
-                         |                                    |
-                         v                                    v
-                   Server (not published to the host)  <------+
-                   - verifies the token again (JWKS)
-                   - applies row-level rules from schema/auth.graphql
-                         |
-                         v
-                      Neo4j
-```
+[![With auth on, the browser logs in at Keycloak, sends tokens to the gateway which validates them and checks permissions, the gateway forwards the header to the server which verifies again and applies row rules, and the server is reachable only through the gateway.](diagrams/auth-architecture.svg)](diagrams/auth-architecture.svg)
+
+*Figure: the auth setup. Every write passes two independent checks, and the server is only reachable through the gateway. Click the image for full size; the numbered notes below carry the same information as text.*
+
+1. **Two addresses.** The token's issuer (`iss`) is the browser-facing `http://localhost:8081/realms/grandstack` because Keycloak runs with `KC_HOSTNAME`; the gateway and server fetch public keys from `http://keycloak:8080/...`, which works inside the compose network. Mixing them up is the most common setup mistake.
+2. **Gateway: the coarse check.** Validates signature, expiry, issuer and audience, then checks the permission each mutation needs (`gateway/rules.ts`), refusing anything unknown by default.
+3. **Server: the fine check.** Verifies the token again with the same keys, then applies `@authentication` (roles) and `@authorization` (row filters) from `schema/auth.graphql`.
+4. **Not published.** The server has no host port in the auth setup. Even a direct call without a valid token is refused.
+5. **The unchanged web app.** `grandstack-web` has no login, so through the gateway it is an anonymous client: reads work, writes are refused.
+6. **Refusals at the gateway.** 401 for no or bad token on a write (including a token signed with an unknown key id), 403 for a missing permission, and unknown mutations are refused.
 
 | Piece | Where | Job |
 | --- | --- | --- |
@@ -50,6 +42,17 @@ Reads are public. Writes need a token.
 | Create, edit, delete movies, people, genres | no (401) | no (403) | yes | yes |
 
 "Nothing changes" is deliberate: row-level rules are `filter` rules, so a review that is not yours is simply not matched and the mutation affects zero rows, with no error. Roles are cumulative in Keycloak (moderator includes editor includes user). More detail in [the role and permission model](role-and-scope-model.md).
+
+## A request, step by step
+
+[![A login with PKCE, then bob (editor) creates a movie and it succeeds, alice (user) makes the same call and the gateway answers 403 without calling the server, and alice editing a review she did not write returns an empty result because the row filter matches nothing.](diagrams/login-and-protected-write.svg)](diagrams/login-and-protected-write.svg)
+
+*Figure: login, an allowed write, a write refused at the gateway, and a write filtered out at the server. Click the image for full size; the numbered notes below carry the same information as text.*
+
+1. **Login once.** Authorization code with PKCE at Keycloak; the access token carries `sub`, the name and the `roles`.
+2. **Allowed.** Bob's roles imply `catalog:write`, so the gateway forwards the same `Authorization` header; the server verifies it again and requires the `editor` role.
+3. **Refused at the gateway.** Alice has no `catalog:write`: 403, and the server is never called.
+4. **Filtered at the server.** `updateReviews` is allowed (alice has `reviews:write`), but the review's author is not alice and she is not a moderator, so the row filter matches nothing: 200 with an empty list and no change.
 
 ## What the responses look like
 

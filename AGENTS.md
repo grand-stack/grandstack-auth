@@ -19,4 +19,4 @@ Auth for GRANDstack: Hive Gateway (`gateway/`), Keycloak dev realm (`keycloak/`)
 - Never use the demo realm, its passwords or the password-grant clients outside local development.
 
 ## Keep the docs true
-Update the matching doc in the same change as the behaviour (role tables in `docs/how-it-works.md` and `docs/role-and-scope-model.md`, Keycloak facts in `docs/keycloak.md`). `npm run docs:check` fails on a broken relative link. Keep `exercise/reference-solution.patch` valid with `npm run verify-exercise`.
+Update the matching doc in the same change as the behaviour (role tables in `docs/how-it-works.md` and `docs/role-and-scope-model.md`, Keycloak facts in `docs/keycloak.md`). `npm run docs:check` fails on a broken relative link. Keep `exercise/reference-solution.patch` valid with `npm run verify-exercise`. Diagrams are SVG files in `docs/diagrams/`: edit the SVG and its numbered legend together when behaviour changes; `npm run docs:check` fails on a missing alt text, unsafe SVG content, or legend numbers that do not match the callouts drawn.
