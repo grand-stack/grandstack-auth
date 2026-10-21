@@ -1,0 +1,85 @@
+"""The claims we read from the access token."""
+type JWT @jwt {
+  """Realm roles granted to the user (Keycloak: a `roles` claim)."""
+  roles: [String!]! @jwtClaim(path: "roles")
+  """Stable user id."""
+  sub: String
+}
+
+"""A person who signed in and wrote a review. Created the first time they review."""
+type User @node @mutation(operations: []) {
+  """Subject id from the token (`sub`)."""
+  sub: String!
+  """Display name taken from the token when the user was created."""
+  name: String
+  """Reviews the user wrote."""
+  reviews: [Review!]! @relationship(type: "WROTE_REVIEW", direction: OUT)
+}
+
+"""A user's review of a movie. Created only through `createReview`, so the author always comes from the token."""
+type Review @node @mutation(operations: [UPDATE, DELETE]) {
+  """Unique id."""
+  id: ID! @id
+  """Rating from 1 to 10."""
+  rating: Int!
+  """Review text."""
+  text: String
+  """
+  When the review was written, as an ISO 8601 string. Stored as text because reading a DateTime field makes the library call the APOC plugin, which the default Neo4j in this stack does not have.
+  """
+  createdAt: String!
+  """Who wrote it."""
+  author: User @relationship(type: "WROTE_REVIEW", direction: IN, nestedOperations: [])
+  """The movie reviewed."""
+  movie: Movie @relationship(type: "REVIEW_OF", direction: OUT, nestedOperations: [])
+}
+
+extend type Movie {
+  """Reviews written about the movie."""
+  reviews: [Review!]! @relationship(type: "REVIEW_OF", direction: IN, nestedOperations: [])
+}
+
+type Mutation {
+  """
+  Writes a review as the signed-in user. The author is taken from the token. Rating must be 1 to 10; an invalid rating or unknown movie returns null.
+  """
+  createReview(
+    """Title of the movie to review."""
+    movie: String!
+    """Rating from 1 to 10."""
+    rating: Int!
+    """Review text."""
+    text: String
+  ): Review
+    @authentication
+    @cypher(
+      statement: """
+      MATCH (m:Movie {title: $movie})
+      WHERE $rating >= 1 AND $rating <= 10
+      MERGE (u:User {sub: $jwt.sub})
+        ON CREATE SET u.name = coalesce($jwt.name, $jwt.preferred_username, "Anonymous")
+      CREATE (u)-[:WROTE_REVIEW]->(r:Review {id: randomUUID(), rating: $rating, text: $text, createdAt: toString(datetime())})-[:REVIEW_OF]->(m)
+      RETURN r
+      """
+      columnName: "r"
+    )
+}
+
+# Row-level rules. Catalogue writes need the editor role (the gateway also checks permissions).
+extend type Movie @authentication(operations: [CREATE, UPDATE, DELETE, CREATE_RELATIONSHIP, DELETE_RELATIONSHIP], jwt: { roles: { includes: "editor" } })
+extend type Person @authentication(operations: [CREATE, UPDATE, DELETE, CREATE_RELATIONSHIP, DELETE_RELATIONSHIP], jwt: { roles: { includes: "editor" } })
+extend type Genre @authentication(operations: [CREATE, UPDATE, DELETE, CREATE_RELATIONSHIP, DELETE_RELATIONSHIP], jwt: { roles: { includes: "editor" } })
+
+# A review may be changed or deleted only by its author or a moderator. This is a `filter` rule: for anyone else the
+# review is simply not matched, so the mutation changes nothing. (`validate` rules would error instead, but they need
+# the APOC plugin in Neo4j.) The author and movie links cannot be edited through Review at all (nestedOperations: []).
+extend type Review
+  @authentication(operations: [UPDATE, DELETE])
+  @authorization(
+    filter: [
+      {
+        operations: [UPDATE, DELETE]
+        where: { OR: [{ node: { author: { sub: { eq: "$jwt.sub" } } } }, { jwt: { roles: { includes: "moderator" } } }] }
+      }
+    ]
+  )

@@ -1,0 +1,51 @@
+/*
+ * Design tokens. Styled after the Neo4j Needle design system (https://www.neo4j.design): Public Sans,
+ * a blue/teal primary and cool neutral surfaces. The exact values below are approximations and have not
+ * been checked against Needle's published tokens. We do not depend on @neo4j-ndl/* because it is GPL-3.0.
+ */
+:root {
+  --font: "Public Sans Variable", system-ui, sans-serif;
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-8: 48px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+
+  --bg: #0b1520;
+  --bg-raised: #111f2e;
+  --bg-sunken: #08111a;
+  --surface: #15283a;
+  --surface-hover: #1b3349;
+  --border: #243b50;
+  --text: #eef3f8;
+  --text-muted: #9bb0c4;
+  --primary: #5db3f0;
+  --primary-strong: #8ecbf5;
+  --on-primary: #06202f;
+  --accent: #3ddbb0;
+  --warn: #ffc857;
+  --danger: #ff7a7a;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --focus: 0 0 0 3px rgba(93, 179, 240, 0.55);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f7fa;
+  --bg-raised: #ffffff;
+  --bg-sunken: #e9eff5;
+  --surface: #ffffff;
+  --surface-hover: #eef4fa;
+  --border: #d5e0ea;
+  --text: #0f2233;
+  --text-muted: #53697d;
+  --primary: #0a6190;
+  --primary-strong: #064a70;
+  --on-primary: #ffffff;
+  --accent: #0b8a6a;
+  --warn: #9a6700;
+  --danger: #c0342f;
+  --shadow: 0 8px 24px rgba(15, 34, 51, 0.12);
+  --focus: 0 0 0 3px rgba(10, 97, 144, 0.4);
+}

@@ -1,0 +1,20 @@
+{
+  "name": "grandstack-auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "Authentication and authorization for GRANDstack: Keycloak dev realm, Hive Gateway config, schema rules and a demo client",
+  "scripts": {
+    "smoke": "node scripts/auth-smoke.mjs",
+    "docs:check": "node scripts/check-links.mjs",
+    "verify-exercise": "sh scripts/verify-exercise.sh",
+    "e2e": "node e2e/run.mjs"
+  },
+  "dependencies": {
+    "jose": "6.2.13"
+  },
+  "devDependencies": {
+    "puppeteer-core": "25.15.0"
+  }
+}
