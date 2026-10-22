@@ -17,7 +17,8 @@ Auth for GRANDstack: Hive Gateway (`gateway/`), Keycloak dev realm (`keycloak/`)
 - The server and gateway read their config at startup: restart the server after changing `auth.graphql`, then the gateway.
 - `grandstack-web` stays unauthenticated and unchanged; against the gateway it is an anonymous client and its writes fail by design.
 - Never use the demo realm, its passwords or the password-grant clients outside local development.
-- New code files need the copyright header (two lines: `Copyright (c) "Neo4j"` and `Neo4j Sweden AB [http://neo4j.com]`, in the file's comment syntax). Run `node ../grandstack/scripts/add-headers.mjs` to add it everywhere; `--check` lists what is missing. Generated files are exempt.
+- New code files need the copyright header (two lines: `Copyright (c) "Neo4j"` and `Neo4j Sweden AB [http://neo4j.com]`, in the file's comment syntax). Run `node ../grandstack/scripts/add-headers.mjs` (or `node ../.github/scripts/headers.mjs --root .` for one repository) to add it; `--check` lists what is missing. Generated files are exempt.
 
 ## Keep the docs true
 Update the matching doc in the same change as the behaviour (role tables in `docs/how-it-works.md` and `docs/role-and-scope-model.md`, Keycloak facts in `docs/keycloak.md`). `npm run docs:check` fails on a broken relative link. Keep `exercise/reference-solution.patch` valid with `npm run verify-exercise`. Diagrams are SVG files in `docs/diagrams/`: edit the SVG and its numbered legend together when behaviour changes; `npm run docs:check` fails on a missing alt text, unsafe SVG content, or legend numbers that do not match the callouts drawn.
+- Releases use the **release-cut** workflow (Actions tab), which sets the version in every `package.json`, tags and publishes. Do not bump versions or push tags by hand; see `grandstack/docs/releasing.md`.

@@ -1,33 +1,37 @@
 # Copyright (c) "Neo4j"
 # Neo4j Sweden AB [http://neo4j.com]
 name: ci
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches: [main]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
 jobs:
   gateway:
-    runs-on: ubuntu-latest
-    defaults: { run: { working-directory: gateway } }
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 24, cache: npm, cache-dependency-path: gateway/package-lock.json }
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
+    uses: grand-stack/.github/.github/workflows/ci-node.yml@v1
+    with:
+      scripts: "typecheck test"
+      working-directory: gateway
+      check-headers: false
   client:
+    uses: grand-stack/.github/.github/workflows/ci-node.yml@v1
+    with:
+      scripts: "typecheck test build"
+      working-directory: client
+      check-headers: false
+  repository:
+    uses: grand-stack/.github/.github/workflows/ci-node.yml@v1
+    with:
+      install: false
+      scripts: ""
+      commands: node scripts/check-links.mjs
+  docker:
     runs-on: ubuntu-latest
-    defaults: { run: { working-directory: client } }
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 24, cache: npm, cache-dependency-path: client/package-lock.json }
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run build
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 24 }
-      - run: node scripts/check-links.mjs
+      - run: docker build -t grandstack-auth-gateway:ci gateway
+      - run: docker build -t grandstack-auth-client:ci client
