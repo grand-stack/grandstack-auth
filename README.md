@@ -57,3 +57,7 @@ Working with a coding agent? Start with [AGENTS.md](AGENTS.md).
 `npm ci` prints `npm warn install-scripts` notices; they are harmless.
 
 Last verified: grandstack-auth v0.1.1 with grandstack-server v0.7.1, Keycloak 26.8.1, Hive Gateway 2.15.2, Neo4j 2026.10 community, under Podman 6 on macOS.
+
+## Licence
+
+Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The same licence applies to every GRANDstack repository and to [grandstack.ai](https://grandstack.ai).
