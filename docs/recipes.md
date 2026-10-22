@@ -2,6 +2,8 @@
 
 Step-by-step changes. Commands run from the root of `grandstack-auth` with the auth stack up (`docker compose -f compose.yaml -f compose.auth.yaml up --build` in the `grandstack` repo) unless stated. Each recipe ends with how to check it.
 
+> **Where to run this.** Commands on this page that start with `npm`, `node` or `docker build` run inside a clone of this repository: `git clone https://github.com/grand-stack/grandstack-auth`, then `cd grandstack-auth` (Node 22 or later; run `npm ci` once). Commands that need the running stack use the `grandstack` repository's compose files: see the [quickstart](https://grandstack.ai/quickstart/).
+
 ## Add a role that can delete any review
 
 Example: a `critic` role, like a moderator but only for reviews.

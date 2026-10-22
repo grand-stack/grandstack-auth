@@ -13,9 +13,11 @@ Authentication and authorization for GRANDstack: a **gateway** that validates Ke
 
 ## Run it
 
-This repo is used through the `grandstack` umbrella repo. With `grandstack`, `grandstack-server`, `grandstack-web` and this repo side by side in one folder:
+This repo is used through the `grandstack` umbrella repo. Clone `grandstack`, `grandstack-server`, `grandstack-web` and this repo side by side into one folder, then start the stack from the `grandstack` folder:
 
 ```sh
+mkdir grand-stack && cd grand-stack      # any folder name
+for repo in grandstack grandstack-server grandstack-web grandstack-auth; do git clone https://github.com/grand-stack/$repo; done
 cd grandstack
 cp .env.example .env        # once
 docker compose -f compose.yaml -f compose.auth.yaml up --build
