@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 // Reads the schema from the gateway (introspection is public). Needs the auth stack running.

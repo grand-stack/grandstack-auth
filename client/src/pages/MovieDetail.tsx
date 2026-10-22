@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router";
 import { useMutation, useQuery } from "urql";

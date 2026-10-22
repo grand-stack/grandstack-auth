@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { hash } from "../lib/hash";
 import { initials } from "../lib/initials";
 

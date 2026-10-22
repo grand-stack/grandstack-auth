@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { Link, NavLink, Route, Routes } from "react-router";
 import { useAuth } from "./auth/AuthProvider";
 import { Button } from "./ui";

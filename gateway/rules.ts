@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 // Pure authorization rules for the gateway. No gateway imports, so they are unit-tested on their own.
 import { Kind, getOperationAST, type DocumentNode, type SelectionSetNode, type FragmentDefinitionNode } from "graphql";
 

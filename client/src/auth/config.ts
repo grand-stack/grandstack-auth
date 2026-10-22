@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 /** OIDC settings, read from build-time environment variables. Any OpenID Connect provider works (Keycloak, Auth0, ...). */
 export interface OidcConfig {
   authority: string;

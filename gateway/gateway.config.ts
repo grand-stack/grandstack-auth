@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 // Hive Gateway in proxy mode in front of grandstack-server.
 //  - validates the bearer token (signature via JWKS, expiry, issuer, audience); a missing token is allowed (public reads)
 //  - refuses mutations the token has no permission for (see rules.ts)

@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { useState } from "react";
 import { getAccessToken } from "../auth/AuthProvider";
 import { useAuth } from "../auth/AuthProvider";

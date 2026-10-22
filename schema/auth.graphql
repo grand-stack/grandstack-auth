@@ -1,3 +1,5 @@
+# Copyright (c) "Neo4j"
+# Neo4j Sweden AB [http://neo4j.com]
 """The claims we read from the access token."""
 type JWT @jwt {
   """Realm roles granted to the user (Keycloak: a `roles` claim)."""

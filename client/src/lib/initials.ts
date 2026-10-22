@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 /** Up to two capital letters for an avatar: first and last word of the name, ignoring Jr., Sr., II and III. */
 export function initials(name: string): string {
   const parts = name.replace(/[.,]/g, "").split(/\s+/).filter((w) => w && !/^(jr|sr|ii|iii)$/i.test(w));

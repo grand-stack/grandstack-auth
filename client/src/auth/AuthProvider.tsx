@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { User, UserManager, WebStorageStateStore } from "oidc-client-ts";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { identityFromToken, type Identity } from "./claims";

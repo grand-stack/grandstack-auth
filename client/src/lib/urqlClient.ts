@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { Client, cacheExchange, fetchExchange } from "urql";
 import { getAccessToken } from "../auth/AuthProvider";
 import { GRAPHQL_URL } from "../auth/config";

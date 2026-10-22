@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 // Browser end-to-end checks for the auth demo client, including the real Keycloak login page.
 //   CLIENT_URL (default http://localhost:3001)  WEB_URL (default http://localhost:3000, the unchanged grandstack-web)
 //   GRAPHQL_URL (default http://localhost:4000/graphql)  CHROME_PATH  OUT (screenshot directory)

@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import { hash } from "../lib/hash";
 
 /** Deterministic generated poster art. No images: the look comes from the title and primary genre. */

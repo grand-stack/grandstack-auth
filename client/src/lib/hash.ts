@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 /** FNV-1a string hash. Used to give titles and names stable generated colours. */
 export function hash(s: string): number {
   let h = 2166136261;

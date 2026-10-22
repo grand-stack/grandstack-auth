@@ -1,4 +1,6 @@
 #!/bin/sh
+# Copyright (c) "Neo4j"
+# Neo4j Sweden AB [http://neo4j.com]
 # Checks that exercise/reference-solution.patch still applies to a clean grandstack-web and that the result type-checks,
 # passes its tests and builds. Usage: sh scripts/verify-exercise.sh [path-to-grandstack-web]  (default ../grandstack-web)
 # WEB_REF is the grandstack-web tag the patch was made against (default v0.5.0).

@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 /** Reading what a token says about the user. The browser only decodes the token to show and gate UI; the gateway and server verify it. */
 export interface Identity {
   sub: string;

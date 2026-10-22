@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 import "@fontsource-variable/public-sans";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

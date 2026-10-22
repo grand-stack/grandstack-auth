@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 // Token-level integration tests for the auth setup. No browser needed.
 //   GRAPHQL_URL   endpoint under test (the gateway in the auth stack)           default http://localhost:4000/graphql
 //   SERVER_URL    optional: the GraphQL server itself, to prove it refuses unauthenticated writes when bypassing the gateway

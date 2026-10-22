@@ -1,3 +1,5 @@
+// Copyright (c) "Neo4j"
+// Neo4j Sweden AB [http://neo4j.com]
 // Acceptance check for the exercise "add authentication to grandstack-web".
 // Run it against YOUR modified copy of the web app, served with the auth stack (see docs/exercise-add-auth-to-grandstack-web.md).
 //   WEB_URL (default http://localhost:3000)   GRAPHQL_URL (default http://localhost:4000/graphql)   CHROME_PATH
