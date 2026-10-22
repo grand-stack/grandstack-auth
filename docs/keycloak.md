@@ -2,7 +2,7 @@
 
 `keycloak/grandstack-realm.json` is imported when Keycloak starts. It defines everything the stack needs, so there is nothing to click in the admin console.
 
-> **Where to run this.** Docker Compose commands run inside a clone of the `grandstack` repository, with the repositories it builds cloned beside it: `git clone https://github.com/grand-stack/grandstack`, and the others the same way. The [quickstart](https://grandstack.ai/quickstart/) has the exact steps.
+> **Where to run this.** Docker Compose commands run inside a clone of the `grandstack` repository, with the repositories it builds cloned beside it: `git clone https://github.com/grand-stack/grandstack`, and the others the same way. The [quickstart](https://www.grandstack.ai/quickstart/) has the exact steps.
 
 ## What is in it
 

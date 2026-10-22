@@ -62,4 +62,4 @@ Last verified: grandstack-auth v0.1.1 with grandstack-server v0.7.1, Keycloak 26
 
 ## Licence
 
-Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The same licence applies to every GRANDstack repository and to [grandstack.ai](https://grandstack.ai).
+Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The same licence applies to every GRANDstack repository and to [grandstack.ai](https://www.grandstack.ai).

@@ -2,7 +2,7 @@
 
 `client/` is a small React app (Vite, urql, `oidc-client-ts`) that shows the auth setup working. It is **separate from `grandstack-web`**, which stays an open, unauthenticated app. It runs on http://localhost:3001 in the auth stack.
 
-> **Where to run this.** Commands on this page that start with `npm`, `node` or `docker build` run inside a clone of this repository: `git clone https://github.com/grand-stack/grandstack-auth`, then `cd grandstack-auth` (Node 22 or later; run `npm ci` once). Commands that need the running stack use the `grandstack` repository's compose files: see the [quickstart](https://grandstack.ai/quickstart/).
+> **Where to run this.** Commands on this page that start with `npm`, `node` or `docker build` run inside a clone of this repository: `git clone https://github.com/grand-stack/grandstack-auth`, then `cd grandstack-auth` (Node 22 or later; run `npm ci` once). Commands that need the running stack use the `grandstack` repository's compose files: see the [quickstart](https://www.grandstack.ai/quickstart/).
 
 ## What it does
 

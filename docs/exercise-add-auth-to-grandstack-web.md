@@ -2,7 +2,7 @@
 
 A follow-up task for a developer, or a coding agent, to do in **their own copy** of `grandstack-web`. `grandstack-web` itself stays an open, unauthenticated app on purpose; this exercise shows how to add login to an app like it, using the gateway, Keycloak and server rules from this repository.
 
-> **Where to run this.** Docker Compose commands run inside a clone of the `grandstack` repository, with the repositories it builds cloned beside it: `git clone https://github.com/grand-stack/grandstack`, and the others the same way. The [quickstart](https://grandstack.ai/quickstart/) has the exact steps.
+> **Where to run this.** Docker Compose commands run inside a clone of the `grandstack` repository, with the repositories it builds cloned beside it: `git clone https://github.com/grand-stack/grandstack`, and the others the same way. The [quickstart](https://www.grandstack.ai/quickstart/) has the exact steps.
 
 Time: about 2 to 3 hours if you write everything yourself; much less if you borrow from the demo client. The reference solution is about 20 files and 350 lines, which is a good size to aim for. Level: you know React and have read [how it works](how-it-works.md).
 
