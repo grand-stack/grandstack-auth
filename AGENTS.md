@@ -10,6 +10,7 @@ Auth for GRANDstack: Hive Gateway (`gateway/`), Keycloak dev realm (`keycloak/`)
 - First time: `cp .env.example .env` in the `grandstack` repo (compose reads the Neo4j password from it).
 
 ## Rules that are easy to get wrong
+- **Build on the blocks; do not make a silo.** A new repository or setup must be made from what GRANDstack already provides (the `grandstack-server` image and its models, the `grandstack-federation` gateway, `grandstack-auth`, `grandstack-agents`, compose overlays in the `grandstack` repository), and improve a block when it falls short rather than copying or working around it. Read [building on GRANDstack](../grandstack/docs/building-on-grandstack.md) before creating a repository, a compose file, a server, a gateway or a docs structure. Providing building blocks that people shape into their own solution is a goal of the project.
 - Realm edits only apply to a fresh Keycloak (recreate the container); see [docs/keycloak.md](docs/keycloak.md#changing-the-realm).
 - **Two addresses:** `AUTH_ISSUER` is the browser-facing `http://localhost:8081/realms/grandstack`; `AUTH_JWKS_URL` is `http://keycloak:8080/...` (reachable from containers). They must match the token's `iss` and the services' network respectively.
 - A new mutation must be added to `MUTATION_PERMISSIONS` in `gateway/rules.ts` or the gateway refuses it (default deny).
